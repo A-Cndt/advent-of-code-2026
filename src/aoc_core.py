@@ -43,6 +43,7 @@ from html.parser import HTMLParser
 from pathlib import Path
 from types import ModuleType
 from typing import Any
+import urllib.parse
 
 # =============================================================================
 # 2. CONFIGURATION
@@ -269,40 +270,56 @@ def build_user_agent() -> str:
     return USER_AGENT_BASE
 
 
-def http_get(url: str, session: str = "") -> str | Any:
-    """Perform a GET request on adventofcode.com.
+def http_get(url: str, session: str | None = None) -> str | Any:
+    """Effectue une requête HTTP sécurisée.
 
-    :param url: full URL to query
-    :param session: optional session cookie
-    :return: response body decoded as UTF-8
-    :raises AocError: on HTTP or network errors
+    Seuls les protocoles HTTP et HTTPS sont autorisés.
+
+    Args:
+        url: URL de la ressource à récupérer.
+        session: Jeton de session Advent of Code facultatif.
+
+    Returns:
+        Contenu de la réponse HTTP décodé en UTF-8.
+
+    Raises:
+        AocError: Si l'URL utilise un protocole non autorisé.
     """
-    headers = {"User-Agent": build_user_agent()}
+    parsed_url = urllib.parse.urlparse(url)
+
+    if parsed_url.scheme not in {"http", "https"}:
+        raise AocError(
+            f"Protocole URL non autorisé : {parsed_url.scheme!r}"
+        )
+
+    if not parsed_url.netloc:
+        raise AocError("URL invalide : nom d'hôte manquant.")
+
+    headers = {
+        "User-Agent": USER_AGENT,
+    }
 
     if session:
         headers["Cookie"] = f"session={session}"
 
-    request = urllib.request.Request(url, headers=headers)
+    request = urllib.request.Request(
+        url,
+        headers=headers,
+    )
 
     try:
         with urllib.request.urlopen(request, timeout=15) as response:
             return response.read().decode("utf-8")
 
     except urllib.error.HTTPError as exc:
-        if exc.code == 404:
-            raise AocError(
-                "Jour introuvable ou pas encore débloqué."
-            ) from exc
-
-        if exc.code in (400, 401, 403, 500):
-            raise AocError(
-                "Accès refusé : cookie de session invalide ou expiré."
-            ) from exc
-
-        raise AocError(f"Erreur HTTP {exc.code}.") from exc
+        raise AocError(
+            f"Erreur HTTP {exc.code} lors de la requête."
+        ) from exc
 
     except urllib.error.URLError as exc:
-        raise AocError(f"Erreur réseau : {exc.reason}") from exc
+        raise AocError(
+            f"Impossible de contacter le serveur : {exc.reason}"
+        ) from exc
 
 
 class PuzzleParser(HTMLParser):
