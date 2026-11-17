@@ -308,7 +308,12 @@ def http_get(url: str, session: str | None = None) -> str | Any:
     )
 
     try:
-        with urllib.request.urlopen(request, timeout=15) as response:
+        opener = urllib.request.build_opener(
+            urllib.request.HTTPHandler(),
+            urllib.request.HTTPSHandler(),
+        )
+        
+        with opener.open(request, timeout=15) as response:
             return response.read().decode("utf-8")
 
     except urllib.error.HTTPError as exc:
