@@ -82,29 +82,37 @@ def test_http_get_uses_http_handlers(
     """Vérifie que seuls les gestionnaires HTTP et HTTPS sont configurés."""
 
     opener = MagicMock()
+    opener.open.return_value.__enter__.return_value = io.BytesIO(b"OK")
 
-    monkeypatch.setattr(
-        urllib.request,
-        "build_opener",
-        lambda *handlers: opener,
-    )
+    http_handler = object()
+    https_handler = object()
+    handlers = []
 
     monkeypatch.setattr(
         urllib.request,
         "HTTPHandler",
-        lambda: "HTTP_HANDLER",
+        lambda: http_handler,
     )
-
     monkeypatch.setattr(
         urllib.request,
         "HTTPSHandler",
-        lambda: "HTTPS_HANDLER",
+        lambda: https_handler,
     )
 
-    with pytest.raises(core.AocError):
-        core.http_get("https://adventofcode.com/2026")
+    def fake_build_opener(*args):
+        handlers.extend(args)
+        return opener
 
-    # L'appel à open() est simulé et ne déclenche aucune requête réseau.
+    monkeypatch.setattr(
+        urllib.request,
+        "build_opener",
+        fake_build_opener,
+    )
+
+    result = core.http_get("https://adventofcode.com/2026")
+
+    assert result == "OK"
+    assert handlers == [http_handler, https_handler]
     opener.open.assert_called_once()
 
 
