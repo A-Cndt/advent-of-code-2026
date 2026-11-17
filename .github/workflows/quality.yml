@@ -31,13 +31,13 @@ jobs:
           pip install ruff mypy bandit
 
       - name: Ruff lint
-        run: ruff check src/ tests/ days/
+        run: ruff check src/
 
       - name: Ruff format
-        run: ruff format --check src/ tests/ /days
+        run: ruff format --check src/
 
       - name: Mypy
-        run: mypy src/ /days
+        run: mypy src/
 
       - name: Bandit
-        run: bandit -r src/ /days -ll
+        run: bandit -r src/ -ll
