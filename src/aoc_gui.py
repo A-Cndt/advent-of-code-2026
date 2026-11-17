@@ -21,7 +21,8 @@ import sys
 import traceback
 from datetime import date, datetime
 from string import Template
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 
 from PySide6.QtCore import QObject, QRunnable, Qt, QThreadPool, Signal
 from PySide6.QtGui import QGuiApplication, QKeySequence, QShortcut
