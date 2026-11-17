@@ -39,10 +39,11 @@ import sys
 import time
 import urllib.error
 import urllib.request
-from contextlib import redirect_stdout
+from contextlib import redirect_stdout, suppress
 from html.parser import HTMLParser
 from pathlib import Path
-from typing import Any, Callable
+from collections.abc import Callable
+from typing import Any
 
 # =============================================================================
 # 2. CONFIGURATION
@@ -237,7 +238,7 @@ def load_session() -> str:
     :return: value of the cookie, or an empty string if it is not set
     :rtype: str
     """
-    return os.environ.get("AOC_SESSION") or read_text(SESSION_FILE).strip()
+    return os.environ.get("AOC_SESSION") or read_text().strip()
 
 
 def save_session(session: str) -> None:
@@ -249,10 +250,8 @@ def save_session(session: str) -> None:
     :type session: str
     """
     write_text(SESSION_FILE, session.strip())
-    try:
-        SESSION_FILE.chmod(0o600)  # owner read/write only (no-op on Windows)
-    except OSError:
-        pass
+    with suppress(OSError):
+        SESSION_FILE.chmod(0o600)
 
 
 def open_path(path: Path) -> None:
