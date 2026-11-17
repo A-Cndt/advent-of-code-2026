@@ -43,7 +43,6 @@ jobs:
       - name: Run tests
         run: |
           pytest tests/ \
-            --cov=aoc2026 \
             --cov-report=term-missing \
             --cov-report=xml \
             --junitxml=pytest-report.xml
