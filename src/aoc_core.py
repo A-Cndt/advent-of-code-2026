@@ -269,7 +269,7 @@ def build_user_agent() -> str:
     return USER_AGENT_BASE
 
 
-def http_get(url: str, session: str = "") -> str:
+def http_get(url: str, session: str = "") -> str | Any:
     """Perform a GET request on adventofcode.com.
 
     :param url: full URL to query
