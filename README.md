@@ -1,8 +1,8 @@
 # Advent of Code solver (GUI)
 
-![CI](https://github.com/USERNAME/advent-of-code-2026/actions/workflows/ci.yml/badge.svg)
-![Quality](https://github.com/USERNAME/advent-of-code-2026/actions/workflows/quality.yml/badge.svg)
-![License](https://img.shields.io/github/license/USERNAME/advent-of-code-2026)
+![CI](https://github.com/A-Cndt/advent-of-code-2026/actions/workflows/ci.yml/badge.svg)
+![Quality](https://github.com/A-Cndt/advent-of-code-2026/actions/workflows/quality.yml/badge.svg)
+![License](https://img.shields.io/github/license/A-Cndt/advent-of-code-2026)
 ![Python](https://img.shields.io/badge/python-3.13%2B-blue)
 
 A small desktop application to work on [Advent of Code](https://adventofcode.com)
