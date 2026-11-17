@@ -1,5 +1,10 @@
 # Advent of Code solver (GUI)
 
+![CI](https://github.com/USERNAME/advent-of-code-2026/actions/workflows/ci.yml/badge.svg)
+![Quality](https://github.com/USERNAME/advent-of-code-2026/actions/workflows/quality.yml/badge.svg)
+![License](https://img.shields.io/github/license/USERNAME/advent-of-code-2026)
+![Python](https://img.shields.io/badge/python-3.13%2B-blue)
+
 A small desktop application to work on [Advent of Code](https://adventofcode.com)
 puzzles day by day: pick a day, fetch the puzzle page and your personal input,
 then run your own `part1` / `part2` functions on the examples or on your input.
