@@ -70,9 +70,14 @@ module = ["PySide6.*"]
 ignore_missing_imports = true
 
 [tool.coverage.run]
-source = ["aoc2026"]
 branch = true
+source = ["aoc_core"]
+omit = [
+    "tests/*",
+    "*/tests/*",
+]
 
 [tool.coverage.report]
 show_missing = true
+skip_covered = true
 fail_under = 80
