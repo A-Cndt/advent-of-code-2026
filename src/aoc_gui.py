@@ -52,7 +52,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from . import aoc_core as core
+import aoc_core as core
 
 
 # =============================================================================
