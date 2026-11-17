@@ -296,7 +296,7 @@ def http_get(url: str, session: str | None = None) -> str | Any:
         raise AocError("URL invalide : nom d'hôte manquant.")
 
     headers = {
-        "User-Agent": USER_AGENT,
+        "User-Agent": build_user_agent(),
     }
 
     if session:
