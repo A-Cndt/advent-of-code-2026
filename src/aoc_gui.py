@@ -333,14 +333,14 @@ def format_duration(seconds: float) -> str:
 # =============================================================================
 # 6. BACKGROUND TASKS
 # =============================================================================
-class TaskSignals(QObject):
+class TaskSignals(QObject): # type: ignore[misc]
     """Signals emitted by a task running in the thread pool."""
 
     success = Signal(object)
     error = Signal(object, str)
 
 
-class Task(QRunnable):
+class Task(QRunnable): # type: ignore[misc]
     """Run a function in a worker thread."""
 
     def __init__(
@@ -370,7 +370,7 @@ class Task(QRunnable):
 # =============================================================================
 # 7. WIDGET: RESULT TILE
 # =============================================================================
-class ResultTile(QFrame):
+class ResultTile(QFrame): # type: ignore[misc]
     """Tile showing the latest result of a puzzle part."""
 
     def __init__(self, part: int) -> None:
@@ -485,7 +485,7 @@ class ResultTile(QFrame):
 # =============================================================================
 # 8. MAIN WINDOW
 # =============================================================================
-class MainWindow(QMainWindow):
+class MainWindow(QMainWindow): # type: ignore[misc]
     """Main window: calendar, example/input editors and results."""
 
     def __init__(self) -> None:
