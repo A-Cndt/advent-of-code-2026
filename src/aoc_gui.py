@@ -47,7 +47,7 @@ from PySide6.QtWidgets import (
     QWidget,
 )
 
-from src import aoc_core as core
+import aoc_core as core
 
 # =============================================================================
 # 2. THEME
