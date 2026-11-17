@@ -37,10 +37,24 @@ select = [
     "SIM", "C4",
 ]
 
+
 [tool.mypy]
 python_version = "3.13"
 strict = true
+
 mypy_path = "src"
+explicit_package_bases = true
+
+files = ["src"]
+
+exclude = [
+    "tests/",
+    ".venv/",
+]
+
+[[tool.mypy.overrides]]
+module = ["PySide6.*"]
+ignore_missing_imports = true
 
 [tool.coverage.run]
 source = ["aoc2026"]
