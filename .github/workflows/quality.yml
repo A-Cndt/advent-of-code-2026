@@ -40,7 +40,7 @@ jobs:
         run: ruff format --check src/
         
       - name: Mypy
-        run: mypy src/ --explicit-package-bases
+        run: mypy --config-file pyproject.toml src/ --explicit-package-bases
 
       - name: Bandit
         run: bandit -r src/ -ll
