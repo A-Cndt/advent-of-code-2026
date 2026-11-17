@@ -17,6 +17,7 @@ dev = [
     "radon",
     "sphinx",
     "pip-audit",
+    "PySide6",
 ]
 
 [tool.pytest.ini_options]
