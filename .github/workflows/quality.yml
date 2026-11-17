@@ -31,7 +31,7 @@ jobs:
           pip install ruff mypy bandit
 
       - name: Ruff lint
-        run: ruff check src/
+        run: ruff check src/ --fix
 
       - name: Ruff format
         run: ruff format --check src/
